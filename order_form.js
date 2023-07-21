@@ -34,18 +34,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (quantity && !size) {
-      errorMessageSpan.textContent = 'Please select both quantity and size.';
-      addonContainer.classList.add('error');
+      errorMessageSpan.textContent = 'Please select both quantity and size. (Required)';
+      addonContainer.classList.add('error_highlight');
       quantityInput.setAttribute('required', 'required');
       sizeInput.setAttribute('required', 'required');
     } else if (!quantity && size) {
-      errorMessageSpan.textContent = 'Please select both quantity and size.';
-      addonContainer.classList.add('error');
+      errorMessageSpan.textContent = 'Please select both quantity and size. (Required)';
+      addonContainer.classList.add('error_highlight');
       quantityInput.setAttribute('required', 'required');
       sizeInput.setAttribute('required', 'required');
     } else {
       errorMessageSpan.textContent = '';
-      addonContainer.classList.remove('error');
+      addonContainer.classList.remove('error_highlight');
       quantityInput.removeAttribute('required');
       sizeInput.removeAttribute('required');
     }
