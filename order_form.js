@@ -1,4 +1,17 @@
 
+/*
+Add-Ons Validation Logic
+
+1. The script waits for the DOMContentLoaded event, i.e., when the DOM is fully loaded.
+2. It then finds all elements with the classes '.productoptions_3columns' and '.productoptions_4columns', which are assumed to be add-on containers.
+3. For each add-on container, it adds 'input' event listeners to the quantity and size input fields. These listeners call a validation function whenever the input values change.
+4. The validation function checks if both the quantity and size fields of an add-on container are filled. If both fields are not filled, it adds an error message and the 'error' class to the container. The function also adjusts the 'required' attribute on the quantity and size fields as needed.
+5. Lastly, the script selects specific 'input' and 'select' elements based on their 'name' attribute and modifies their 'required' attribute, changing it from 'required' to 'required="required"'.
+
+The primary purpose of this script is to enhance the user interface by providing immediate feedback to users as they interact with product options on a form, ensuring that the form is filled out correctly before submission.
+*/
+
+
 document.addEventListener("DOMContentLoaded", function() {
   function validateAddon(addonContainer) {
     const quantityInput = addonContainer.querySelector('input[type="number"]');
@@ -14,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let errorMessageSpan = addonContainer.nextSibling;
 
-    if (!errorMessageSpan || !errorMessageSpan.classList.contains('error-message')) {
+    if (!errorMessageSpan || !errorMessageSpan.classList.contains('global-error-message')) {
       errorMessageSpan = document.createElement('span');
-      errorMessageSpan.classList.add('error-message');
+      errorMessageSpan.classList.add('global-error-message');
       addonContainer.parentNode.insertBefore(errorMessageSpan, addonContainer.nextSibling);
     }
 
@@ -79,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// Clear and remove required from addons input on removal
+// Clear and remove required from addons input on addons removal
 
 // Attach a 'DOMContentLoaded' event listener to document to ensure the DOM is fully loaded before executing the script
 document.addEventListener("DOMContentLoaded", function() {
@@ -161,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// Make cake inputs required on addition
+// Make cake inputs required on when added
 // Attach a 'DOMContentLoaded' event listener to the document to ensure the DOM is fully loaded before executing the script
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -193,9 +206,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
-
-
-
 
 
 
@@ -256,13 +266,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Attach a 'DOMContentLoaded' event listener to document to ensure the DOM is fully loaded before executing the script
 document.addEventListener("DOMContentLoaded", function() {
   
-  // Get the form by its id, the 'submit-order' button by its id, the add buttons for custom cake and addons, and the 'error-message' div
+  // Get the form by its id, the 'submit-order' button by its id, the add buttons for custom cake and addons, and the 'global-error-message' div
   var form = document.getElementById("online-order-form");
   var submitOrderButton = document.getElementById("submit-order");
   var addCustomCakeButton = document.getElementById("add-custom-cake");
   var addAddonsButton = document.getElementById("add-addons");
   var errorList = document.getElementById("error_list");
-  var errorMessageDiv = document.getElementById("error-message");
+  var errorMessageDiv = document.getElementById("global-error-message");
 
   // Order type
   var orderTypeLabel = document.getElementById("order-type");
@@ -293,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Clear all existing list items in the error list
     errorList.innerHTML = "";
 
-    // Initially hide the 'error-message' div
+    // Initially hide the 'global-error-message' div
     errorMessageDiv.style.display = "none";
 
     requiredFields.forEach(function(field) {
@@ -324,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
         listItem.textContent = toTitleCase(field.name);
         errorList.appendChild(listItem);
 
-        // Show the 'error-message' div
+        // Show the 'global-error-message' div
         errorMessageDiv.style.display = "block";
 
         allFieldsSet = false;
@@ -369,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function() {
       pickupWrapper.style.outline = "1px solid #c31919";
       deliveryWrapper.style.outline = "1px solid #c31919";
 
-      // Show the 'error-message' div
+      // Show the 'global-error-message' div
       errorMessageDiv.style.display = "block";
 
       allFieldsSet = false;
@@ -410,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function() {
       listItem.textContent = "Products";
       errorList.appendChild(listItem);
       
-      // Show the 'error-message' div
+      // Show the 'global-error-message' div
       errorMessageDiv.style.display = "block";
     } else {
       blankStateDiv.style.outline = "";
